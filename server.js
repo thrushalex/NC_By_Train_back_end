@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/v1/trains', trains);
+app.use('/api/v1/routes', trains);
 app.use('*', (req, res) => {
     res.status(404).json({ error: 'not found' });
 });

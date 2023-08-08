@@ -28,4 +28,18 @@ export default class RoutesDAO {
             return { routesList: []};
         }
     }
+
+    static async getRouteNames() {
+        let routeNames = []
+        try {
+            let routesList = (await RoutesDAO.getRoutes()).routesList;
+            for (const element of routesList) {
+                routeNames.push(element.name);
+            }
+            return routeNames;
+        } catch (e) {
+            console.error(`Unable to get route names, ${e}`);
+            return routeNames;
+        }
+    }
 }

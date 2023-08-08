@@ -2,6 +2,7 @@ import mongodb from 'mongodb';
 import dotenv from 'dotenv';
 import app from './server.js';
 import RoutesDAO from './dao/routesDAO.js';
+import TimetablesDAO from './dao/timetablesDAO.js';
 
 async function main() {
  dotenv.config();
@@ -16,6 +17,7 @@ async function main() {
     // Connect to MongoDB server
     await client.connect();
     await RoutesDAO.injectDB(client);
+    await TimetablesDAO.injectDB(client);
 
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);

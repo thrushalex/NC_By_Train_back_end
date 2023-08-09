@@ -10,6 +10,6 @@ router.route('/routes/names').get(RoutesController.apiGetRouteNames);
 router.route('/routes/routename/:routename/termini').get(RoutesController.apiGetRouteTerminiByName);
 
 router.route('/timetables').get(TimeTablesContoller.apiGetTimetables);
-router.route('/timetables/routename/:routename').get(TimeTablesContoller.apiGetTimetablesByRoute);
+router.route('/timetables/routename/:routename/destination/:destination').get(TimeTablesContoller.apiGetTimetablesByRoute);
 
 export default router;

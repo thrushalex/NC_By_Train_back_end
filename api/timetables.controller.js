@@ -16,9 +16,10 @@ export default class RoutesController {
     }
 
     static async apiGetTimetablesByRoute(req, res, next) {
+        console.log(" hi");
         try {
             let name = req.params.routename
-            let destination = req.body.destination
+            let destination = req.params.destination
             let timetable = await TimetablesDAO.getTimetablesByRoute(name, destination);
             if(!timetable) {
                 res.status(404).json({ error: "not found" });

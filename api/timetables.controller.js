@@ -16,7 +16,6 @@ export default class RoutesController {
     }
 
     static async apiGetTimetablesByRoute(req, res, next) {
-        console.log(" hi");
         try {
             let name = req.params.routename
             let destination = req.params.destination

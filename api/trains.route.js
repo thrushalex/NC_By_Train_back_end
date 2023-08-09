@@ -7,6 +7,7 @@ const router = express.Router(); // Get access to Express router
 
 router.route('/routes').get(RoutesController.apiGetRoutes);
 router.route('/routes/names').get(RoutesController.apiGetRouteNames);
+router.route('/routes/routename/:routename/termini').get(RoutesController.apiGetRouteTerminiByName);
 
 router.route('/timetables').get(TimeTablesContoller.apiGetTimetables);
 router.route('/timetables/routename/:routename').get(TimeTablesContoller.apiGetTimetablesByRoute);

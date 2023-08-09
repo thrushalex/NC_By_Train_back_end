@@ -42,4 +42,25 @@ export default class RoutesDAO {
             return routeNames;
         }
     }
+
+    static async getRouteTerminiByName(name) {
+        try {
+            let route = await routes.aggregate([
+                {
+                    $match: {
+                        name: name,
+                    }
+                },
+            ]).next();
+            if (route.cities.length >= 2) {
+                return [route.cities[0], route.cities[route.cities.length - 1]]
+            } else {
+                return []
+            }
+        } catch (e) {
+            console.error(`Unable to find route termini by name: ${e}`);
+            throw e;
+        }
+    }
+
 }

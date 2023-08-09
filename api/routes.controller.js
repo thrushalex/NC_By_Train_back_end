@@ -27,7 +27,17 @@ export default class RoutesController {
             res.status(500).json({ error: e});
         }
     }
-    // static async apiGetRouteTerminiByName(req, res, next) {
-
-    // }
+    static async apiGetRouteTerminiByName(req, res, next) {
+        try {
+            let termini = await RoutesDAO.getRouteTerminiByName(req.params.routename);
+            if(!termini) {
+                res.status(404).json({ error: "not found" });
+                return;
+            }
+            res.json(termini);
+        } catch(e) {
+            console.log(`API, ${e}`);
+            res.status(500).json({ error: e});
+        }
+    }
 }

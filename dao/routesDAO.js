@@ -63,4 +63,20 @@ export default class RoutesDAO {
         }
     }
 
+    static async getRouteStopsByName(name) {
+        try {
+            let route = await routes.aggregate([
+                {
+                    $match: {
+                        name: name,
+                    }
+                },
+            ]).next();
+            return route.cities;
+        } catch (e) {
+            console.error(`Unable to find route stops by name: ${e}`);
+            throw e;
+        }
+    }
+
 }

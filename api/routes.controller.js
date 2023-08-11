@@ -40,4 +40,17 @@ export default class RoutesController {
             res.status(500).json({ error: e});
         }
     }
+    static async apiGetRouteStopsByName(req, res, next) {
+        try {
+            let stops = await RoutesDAO.getRouteStopsByName(req.params.routename);
+            if(!stops) {
+                res.status(404).json({ error: "not found" });
+                return;
+            }
+            res.json(stops);
+        } catch(e) {
+            console.log(`API, ${e}`);
+            res.status(500).json({ error: e});
+        }
+    }
 }

@@ -35,5 +35,19 @@ export default class TicketsController {
 
     }
 
+    static async apiGetTicketsByUserId(req, res, next) {
+        try {
+            let tickets = await TicketsDAO.getTicketsByUserId(req.params.userId);
+            if(!tickets) {
+                res.status(404).json({ error: "not found" });
+                return;
+            }
+            res.json(tickets);
+        } catch(e) {
+            console.log(`API, ${e}`);
+            res.status(500).json({ error: e});
+        }
+    }
+
 }
 

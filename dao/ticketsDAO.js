@@ -34,4 +34,34 @@ export default class TicketsDAO {
         }
     }
 
+    static async getTicketsByUserId(userId) {
+        try {
+            let ticketsFound = await tickets.aggregate([
+                {
+                    $match: {
+                        userId: userId,
+                    }
+                },
+            ]).next();
+            return ticketsFound;
+        } catch (e) {
+            console.error(`Unable to find tickets by user id: ${e}`);
+            throw e;
+        }
+    }
+
+    static async getTicketsByUserId(userId) {
+        let query = { userId: userId }
+        let cursor;
+
+        try {
+            cursor = await tickets.find(query);
+            const ticketsList = await cursor.toArray();
+            return ticketsList;
+        } catch (e) {
+            console.error(`Unable to issue find command, ${e}`);
+            return [];
+        }
+    }
 }
+

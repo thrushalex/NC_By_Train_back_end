@@ -25,7 +25,7 @@ export default class TicketsDAO {
                 origin: origin,
                 destination: destination,
                 purchaseDate: date,
-                activationDate: null
+                expirationDate: null
             }
             return await tickets.insertOne(ticket);
         } catch (e) {

@@ -34,21 +34,21 @@ export default class TicketsDAO {
         }
     }
 
-    static async getTicketsByUserId(userId) {
-        try {
-            let ticketsFound = await tickets.aggregate([
-                {
-                    $match: {
-                        userId: userId,
-                    }
-                },
-            ]).next();
-            return ticketsFound;
-        } catch (e) {
-            console.error(`Unable to find tickets by user id: ${e}`);
-            throw e;
-        }
-    }
+    // static async getTicketsByUserId(userId) {
+    //     try {
+    //         let ticketsFound = await tickets.aggregate([
+    //             {
+    //                 $match: {
+    //                     userId: userId,
+    //                 }
+    //             },
+    //         ]).next();
+    //         return ticketsFound;
+    //     } catch (e) {
+    //         console.error(`Unable to find tickets by user id: ${e}`);
+    //         throw e;
+    //     }
+    // }
 
     static async getTicketsByUserId(userId) {
         let query = { userId: userId }
@@ -61,6 +61,23 @@ export default class TicketsDAO {
         } catch (e) {
             console.error(`Unable to issue find command, ${e}`);
             return [];
+        }
+    }
+
+    static async activateTicket(ticketId, date) {
+        try {
+            return await tickets.updateOne(
+                { 
+                    _id: new ObjectId(ticketId),
+                }, 
+                { $set: {
+                    expirationDate: date,
+                } },
+                false
+                );
+        } catch (e) {
+            console.error(`Unable to activateTicket: ${e}`);
+            return { error: e };
         }
     }
 }

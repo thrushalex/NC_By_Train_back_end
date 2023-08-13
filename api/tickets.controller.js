@@ -49,5 +49,39 @@ export default class TicketsController {
         }
     }
 
+    static async apiActivateTicket(req, res, next) {
+        try {
+            const ticketId = req.body.ticketId;
+            let currentDate = new Date();
+            const date = new Date(currentDate.getTime() + 2 * 60 * 60 * 1000);
+
+            const ticketActivationResponse = await TicketsDAO.activateTicket(
+                ticketId, date
+            );
+
+            var { error } = ticketActivationResponse;
+
+            if (error) {
+                res.status(500).json({ error: "Unable to activate ticket" });
+            } else {
+                if (ticketActivationResponse.modifiedCount === 1) {
+                    res.json({
+                        status: "success",
+                        response: ticketActivationResponse
+                    });
+                } else {
+                    if (ticketActivationResponse.matchedCount === 0) {
+                        res.status(500).json({ error: `Unable to update review, as a ticket with the provided ticket id (${ticketId}) was not found` });
+                    } else {
+                        res.status(500).json({ error: `Unable to update review for an unknown reason` });
+                    }
+                }
+            }
+
+        } catch(e) {
+            res.status(500).json({ error: e });
+        }
+    }
+
 }
 

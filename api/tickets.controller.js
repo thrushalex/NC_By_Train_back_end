@@ -8,16 +8,20 @@ export default class TicketsController {
             const route = req.body.route;
             const origin = req.body.origin;
             const destination = req.body.destination;
+            const quantity = req.body.quantity;
 
             const date = new Date();
-    
-            const ticketResponse = await TicketsDAO.addTicket(
-                userId,
-                route,
-                origin,
-                destination,
-                date
-            );
+
+            let ticketResponse;
+            for (let i = 0; i < quantity; i++) {
+                ticketResponse = await TicketsDAO.addTicket(
+                    userId,
+                    route,
+                    origin,
+                    destination,
+                    date
+                );
+            }
     
             var { error } = ticketResponse;
     

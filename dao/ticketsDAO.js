@@ -64,5 +64,24 @@ export default class TicketsDAO {
             return { error: e };
         }
     }
+
+    static async deleteExpiredTicketsByUserId(userId, date) {
+        try {
+            let numberDeleted = 0;
+            const userTickets = await TicketsDAO.getTicketsByUserId(userId);
+            for (let i = 0; i < userTickets.length; i++) {
+                if (date > userTickets[i].expirationDate) {
+                    let result = await tickets.deleteOne({ 
+                        _id: userTickets[i]._id,
+                    });
+                    numberDeleted += result.deletedCount;
+                }
+            }
+            return {acknowledged: true, deletedCount: numberDeleted};
+        } catch (e) {
+            console.error(`Unable to delete expired tickets: ${e}`);
+            return { error: e };
+        }
+    }
 }
 

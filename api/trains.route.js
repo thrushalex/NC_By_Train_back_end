@@ -14,12 +14,13 @@ router.route('/routes/routename/:routename/stops').get(RoutesController.apiGetRo
 router.route('/tickets/user/:userId/').get(TicketsController.apiGetTicketsByUserId);
 router.route('/tickets').post(TicketsController.apiAddTicket);
 router.route('/tickets/activate').put(TicketsController.apiActivateTicket);
+router.route('/tickets/delete_expired/user/:userId/').delete(TicketsController.apiDeleteTicketsByUserId);
 
 router.route('/timetables').get(TimeTablesContoller.apiGetTimetables);
 router.route('/timetables/routename/:routename/destination/:destination').get(TimeTablesContoller.apiGetTimetablesByRoute);
 
 router.route('/profiles').post(ProfilesController.apiAddProfile);
 router.route('/profiles/:userId').get(ProfilesController.apiGetProfile);
-router.route('/profiles/:userId').put(ProfilesController.apiUpdateProfile);
+router.route('/profiles').put(ProfilesController.apiUpdateProfile);
 
 export default router;

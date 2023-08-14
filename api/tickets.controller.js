@@ -87,5 +87,19 @@ export default class TicketsController {
         }
     }
 
+    static async apiDeleteTicketsByUserId(req, res, next) {
+        try {
+            let currentDate = new Date();
+            let ticketsDeleteResponse = await TicketsDAO.deleteExpiredTicketsByUserId(req.params.userId, currentDate);
+            if(!ticketsDeleteResponse) {
+                res.status(404).json({ error: "not found" });
+                return;
+            }
+            res.json(ticketsDeleteResponse);
+        } catch(e) {
+            console.log(`API, ${e}`);
+            res.status(500).json({ error: e});
+        }
+    }
 }
 

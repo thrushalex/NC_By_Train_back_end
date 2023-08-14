@@ -48,7 +48,7 @@ export default class ProfilesDAO {
                 }
             ]).next();
         } catch (e) {
-            console.error(`Unable to get movie by ID: ${e}`);
+            console.error(`Unable to get profile by ID: ${e}`);
             throw e;
         }
     }

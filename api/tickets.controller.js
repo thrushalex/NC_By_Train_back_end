@@ -75,9 +75,9 @@ export default class TicketsController {
                     });
                 } else {
                     if (ticketActivationResponse.matchedCount === 0) {
-                        res.status(500).json({ error: `Unable to update review, as a ticket with the provided ticket id (${ticketId}) was not found` });
+                        res.status(500).json({ error: `Unable to activate ticket, as a ticket with the provided ticket id (${ticketId}) was not found` });
                     } else {
-                        res.status(500).json({ error: `Unable to update review for an unknown reason` });
+                        res.status(500).json({ error: `Unable to activate ticket for an unknown reason` });
                     }
                 }
             }

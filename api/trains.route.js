@@ -19,5 +19,7 @@ router.route('/timetables').get(TimeTablesContoller.apiGetTimetables);
 router.route('/timetables/routename/:routename/destination/:destination').get(TimeTablesContoller.apiGetTimetablesByRoute);
 
 router.route('/profiles').post(ProfilesController.apiAddProfile);
+router.route('/profiles/:userId').get(ProfilesController.apiGetProfile);
+router.route('/profiles/:userId').put(ProfilesController.apiUpdateProfile);
 
 export default router;

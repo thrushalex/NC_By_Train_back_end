@@ -4,6 +4,7 @@ import app from './server.js';
 import RoutesDAO from './dao/routesDAO.js';
 import TimetablesDAO from './dao/timetablesDAO.js';
 import TicketsDAO from './dao/ticketsDAO.js';
+import ProfilesDAO from './dao/profilesDAO.js';
 
 async function main() {
  dotenv.config();
@@ -20,6 +21,7 @@ async function main() {
     await RoutesDAO.injectDB(client);
     await TimetablesDAO.injectDB(client);
     await TicketsDAO.injectDB(client);
+    await ProfilesDAO.injectDB(client);
 
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`);

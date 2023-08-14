@@ -2,6 +2,7 @@ import express from 'express';
 import RoutesController from './routes.controller.js';
 import TicketsController from './tickets.controller.js';
 import TimeTablesContoller from './timetables.controller.js';
+import ProfilesController from './profiles.controller.js';
 
 const router = express.Router(); // Get access to Express router
 
@@ -16,5 +17,7 @@ router.route('/tickets/activate').put(TicketsController.apiActivateTicket);
 
 router.route('/timetables').get(TimeTablesContoller.apiGetTimetables);
 router.route('/timetables/routename/:routename/destination/:destination').get(TimeTablesContoller.apiGetTimetablesByRoute);
+
+router.route('/profiles').post(ProfilesController.apiAddProfile);
 
 export default router;

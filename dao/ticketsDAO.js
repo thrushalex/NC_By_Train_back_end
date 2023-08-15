@@ -70,7 +70,7 @@ export default class TicketsDAO {
             let numberDeleted = 0;
             const userTickets = await TicketsDAO.getTicketsByUserId(userId);
             for (let i = 0; i < userTickets.length; i++) {
-                if (date > userTickets[i].expirationDate) {
+                if (userTickets[i].expirationDate !== null && date > userTickets[i].expirationDate) {
                     let result = await tickets.deleteOne({ 
                         _id: userTickets[i]._id,
                     });

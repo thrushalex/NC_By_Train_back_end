@@ -56,7 +56,7 @@ export default class RoutesController {
 
     static async apiGetSegmentDistance(req, res, next) {
         try {
-            let distance = await RoutesDAO.getSegmentDistance(req.body.routeName, req.body.origin, req.body.destination);
+            let distance = await RoutesDAO.getSegmentDistance(req.params.routename, req.params.origin, req.params.destination);
             if(!distance) {
                 res.status(404).json({ error: "not found" });
                 return;

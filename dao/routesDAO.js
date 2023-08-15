@@ -53,7 +53,7 @@ export default class RoutesDAO {
                 },
             ]).next();
             if (route.cities.length >= 2) {
-                return [route.cities[0], route.cities[route.cities.length - 1]]
+                return [route.cities[0].name, route.cities[route.cities.length - 1].name]
             } else {
                 return []
             }
@@ -65,6 +65,7 @@ export default class RoutesDAO {
 
     static async getRouteStopsByName(name) {
         try {
+            let stopNames = [];
             let route = await routes.aggregate([
                 {
                     $match: {
@@ -72,9 +73,38 @@ export default class RoutesDAO {
                     }
                 },
             ]).next();
-            return route.cities;
+            for (const element of route.cities) {
+                stopNames.push(element.name);
+            }
+            return stopNames;
         } catch (e) {
             console.error(`Unable to find route stops by name: ${e}`);
+            throw e;
+        }
+    }
+
+    static async getSegmentDistance(routeName, origin, destination) {
+        try {
+            let originMileMarker = 0;
+            let destinationMileMarker = 0;
+            let route = await routes.aggregate([
+                {
+                    $match: {
+                        name: routeName,
+                    }
+                },
+            ]).next();
+            for (const element of route.cities) {
+                if (element.name === origin) {
+                    originMileMarker = element.mileMarker;
+                } else if (element.name === destination) {
+                    destinationMileMarker = element.mileMarker;
+                }
+            }
+            return Math.abs(originMileMarker - destinationMileMarker);
+
+        } catch (e) {
+            console.error(`Unable to find segment distance: ${e}`);
             throw e;
         }
     }

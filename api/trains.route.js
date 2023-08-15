@@ -10,6 +10,7 @@ router.route('/routes').get(RoutesController.apiGetRoutes);
 router.route('/routes/names').get(RoutesController.apiGetRouteNames);
 router.route('/routes/routename/:routename/termini').get(RoutesController.apiGetRouteTerminiByName);
 router.route('/routes/routename/:routename/stops').get(RoutesController.apiGetRouteStopsByName);
+router.route('/routes/distance').get(RoutesController.apiGetSegmentDistance);
 
 router.route('/tickets/user/:userId/').get(TicketsController.apiGetTicketsByUserId);
 router.route('/tickets').post(TicketsController.apiAddTicket);
